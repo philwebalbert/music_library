@@ -1,0 +1,41 @@
+<% @page_title = "Receipt" -%>
+<h1>Music Library Store</h1>
+
+<h2>Receipt</h2>
+
+Date : <%= @order.created_at.strftime("%B %d, %Y at %I:%M %p %Z") %><br/><br/>
+<%= @order.customer.first_name %> <%= @order.customer.last_name %><br/>
+<%= @order.customer.zip_code %>
+<br/>
+Has successfully purchased:<br/>
+<br/>
+<% total_price = 0 -%>
+<table style="width: 600px;">
+	<tr>
+		<td>Title</td>
+		<td>Artist</td>
+		<td>Quantity</td>
+		<td>Price</td>
+		<td>Subtotal</td>
+	</tr>
+<% for item in @order.line_items -%>
+	<% total_price += (item.price * item.quantity) -%>
+	<tr>
+		<td><strong><%= item.album.title %></strong></td>
+		<td><%= item.album.artist.name %></td>
+		<td><%= item.quantity %></td>
+		<td><%= number_to_currency(item.price) %></td>
+		<td><%= number_to_currency((item.price * item.quantity)) %></td>
+		<td>
+	</tr>
+<% end -%>
+	<tr>
+		<td>Total:</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td><strong><%= number_to_currency(total_price) %></strong></td>
+	</tr>
+</table>
+<br/>
+<%= link_to("Browse More Albums", :controller => "public", :action => "list") %>

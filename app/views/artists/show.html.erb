@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @artist.name %>
+</p>
+
+<p>
+  <b>Active years:</b>
+  <%= @artist.active_years %>
+</p>
+
+<p>
+  <b>Biography:</b>
+  <%= @artist.biography %>
+</p>
+
+<p>
+  <b>Created at:</b>
+  <%= @artist.created_at %>
+</p>
+
+<p>
+  <b>Update at:</b>
+  <%= @artist.updated_at %>
+</p>
+
+<p>
+  <b>Albums:</b><br/>
+  <% for album in @artist.albums -%>
+  	<%= link_to(album.name, album) %>
+  <% end -%>
+</p>
+
+
+<%= link_to 'Edit', edit_artist_path(@artist) %> |
+<%= link_to 'Back', artists_path %>

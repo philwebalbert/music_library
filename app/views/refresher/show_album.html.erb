@@ -1,0 +1,28 @@
+<!DOCTYPE >
+<html>
+	<head>
+		<title>Show Album</title>
+		<%= stylesheet_link_tag :all %>
+  		<%= javascript_include_tag :defaults %>
+	 	<%= csrf_meta_tag %>
+	</head>	
+	<body>
+		<% if @album != nil -%>
+			Id : <%= @album.id %><br/>
+			Title : <%= @album.title %><br/>
+			Old Artist : <%= @album.artist_old %><br/>
+			New Artist : <%= @album.artist.name %><br/>
+			All Albums : <br/>
+				<% for album in @album.artist.albums -%>
+					<%= album.title %><br/>
+				<% end -%><br/>
+			Genre : <%= @album.genre %><br/>
+		<% else -%>
+			No Record Found
+		<% end -%> 
+		<%= link_to('Back', :controller => 'public', :action => 'list')%> | 
+		<%= link_to('Edit', :controller => 'public', :action => 'edit') %> |
+		<%= link_to('Destroy', {:controller => 'public', :action => 'destroy', :id => @album.id}, 
+		{:confirm => 'Are you sure?'}) %> 
+	</body>	
+</html>

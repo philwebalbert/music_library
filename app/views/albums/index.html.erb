@@ -1,0 +1,53 @@
+<%= link_to 'Manage Albums', albums_path %> |
+<%= link_to 'Manage Artists', artists_path %> |
+<%= link_to 'Manage Customers', customers_path %> |
+<%= link_to 'Manage Features', features_path %> |
+<%= link_to 'Manage Orders', orders_path %> |
+<%= link_to 'Manage Users', users_path %>
+<br/>
+<br/>
+
+<h1>Listing albums</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>Release date</th>
+    <th>Genre</th>
+    <th>Price</th>
+    <th>Created</th>
+    <th>Updated</th>
+    <th>Image Location</th>
+    <th>Features</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @albums.each do |album| %>
+  <tr>
+    <td><%= album.title %></td>
+    <td><%= album.artist.name if album.artist %></td>
+    <td><%= album.release_date %></td>
+    <td><%= album.genre %></td>
+    <td><%= album.price %></td>
+    <td><%= album.created_at %></td>
+    <td><%= album.updated_at %></td>
+    <td><%= album.image_path %></td>
+    <td>
+    	<% for feature in album.features -%>
+    		<%= feature.name %><br/>
+    	<% end -%>
+    </td>
+    <td><%= link_to 'Show', album %></td>
+    <td><%= link_to 'Edit', edit_album_path(album) %></td>
+    <td><%= link_to 'Destroy', album, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Album', new_album_path %>
+<%= link_to 'Back', {:controller => 'admin', :action => "menu"} %>

@@ -1,0 +1,48 @@
+<% @page_title = "Your Shopping Cart" -%>
+<h1>Music Library Store</h1>
+
+<h2>Your Shopping Cart</h2>
+
+<table style="width: 500px; border-collapse: collapse;">
+	<tr>
+		<td>&nbsp;</td>
+		<td>Album</td>
+		<td>Artist</td>
+		<td>Quantity</td>
+		<td>Price</td>
+		<td>&nbsp;</td>
+	</tr>
+<% for item in @cart.items -%>
+	<% row_color = cycle('CCCCCC', 'FFFFFF')%>
+	<tr style="background: #<%= row_color %>">
+		<td><%= image_tag(item.album.image_path, :size => '90x90') %></td>
+		<td>
+			<p style="font-size: 14px; font-weight: bold;"><%= h(item.album.title) %></p>
+		</td>
+		<td>
+			<p style="font-size: 12px; font-weight: bold;"><%= h(item.album.artist.name) if item.album.artist %></p>
+		</td>
+		<td>
+			<p style="font-size: 12px;"><%= item.quantity %></p>
+		</td>
+		<td>
+			<p style="font-size: 12px;"><%= number_to_currency(item.price) %></p>
+		</td>
+		<td>
+			<p style="font-size: 12px;"><%= link_to('Remove Item', {:conroller => "public", :action => "remove_item", :id => item.album.id}) %></p>
+		</td>
+	</tr>
+<% end -%>
+	<tr>
+		<td>&nbsp;</td>
+		<td>Shopping Cart Total</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td><%= number_to_currency(@cart.total_price) %></td>
+		<td>&nbsp;</td>
+	</tr>
+</table>
+<%= link_to("Continue Shopping", :controller => "public", :action => "list") %> |
+<%= link_to("Checkout", {:controller => "public", :action => "checkout"}) %>
+<br/><br/>
+<%= link_to("Empty Cart", {:controller => "public", :action => "empty_cart"}, :confirm => "Are you sure?") %>

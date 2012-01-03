@@ -1,0 +1,37 @@
+<%= link_to 'Manage Albums', albums_path %> |
+<%= link_to 'Manage Artists', artists_path %> |
+<%= link_to 'Manage Customers', customers_path %> |
+<%= link_to 'Manage Features', features_path %> |
+<%= link_to 'Manage Orders', orders_path %> |
+<%= link_to 'Manage Users', users_path %>
+<br/>
+<br/>
+
+<h1>Listing artists</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Active years</th>
+    <th>Biography</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @artists.each do |artist| %>
+  <tr>
+    <td><%= artist.name %></td>
+    <td><%= artist.active_years %></td>
+    <td><%= artist.biography %></td>
+    <td><%= link_to 'Show', artist %></td>
+    <td><%= link_to 'Edit', edit_artist_path(artist) %></td>
+    <td><%= link_to 'Destroy', artist, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Artist', new_artist_path %> |
+<%= link_to 'Back', {:controller => 'admin', :action => "menu"} %>

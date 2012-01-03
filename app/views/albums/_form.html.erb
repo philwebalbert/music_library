@@ -1,0 +1,51 @@
+<%= form_for(@album) do |f| %>
+  <% if @album.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
+
+      <ul>
+      <% @album.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>   
+  </div>
+  <div class="field">
+    <%= f.label :artist_id %><br />
+    <%= select_tag "artist_id", options_for_select([['Choose One', '']] + @artists.collect {|art| [art.name, art.id]}, @album.artist_id) %>
+  </div>
+  <div class="field">
+    <%= f.label :release_date %><br />
+    <%= f.datetime_select :release_date %>
+  </div>
+  <div class="field">
+    <%= f.label :genre %><br />
+    <%= f.text_field :genre %>
+  </div>
+  <div class="field">
+    <%= label_tag 'Feature List' %><br />
+    <% for feature in @features -%>
+    	<%= check_box_tag 'feature_list[]', feature.id, @album.features.collect {|obj| obj.id}.include?(feature.id) %><%= feature.name %><br/>
+    <% end -%>
+  </div>
+  <div class="field">
+    <%= f.label :image_path %><br />
+    <%= f.text_field :image_path %>
+  </div>
+  <div class="field">
+    <%= f.label :created_at %><br />
+    <%= f.datetime_select :created_at %>
+  </div>
+  <div class="field">
+    <%= f.label :updated_at %><br />
+    <%= f.datetime_select :updated_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
